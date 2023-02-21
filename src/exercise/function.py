@@ -116,8 +116,8 @@ def timer(func):
         return run_time, value
     return inner_timer
 
-@timer
 
+@timer#creat_agents=timer(creat_agents)
 def create_agents(n_agents):
     """
     A function to create a list of agents. The decorator will print the time
@@ -227,7 +227,6 @@ for mark in marks:
 
 # Sort marks using a callback
 marks.sort(key=getGrade)
-
 print("Ordered marks:")
 for mark in marks:
     print(mark)
