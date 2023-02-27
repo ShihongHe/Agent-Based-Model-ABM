@@ -9,7 +9,7 @@ import random
 import time
 from matplotlib import pyplot as plt
 
-
+random.seed(0)
 def create_agents(n_agents):
     """
     A function to create a list of agents. The decorator will print the time
@@ -56,6 +56,7 @@ def get_distance(x0,y0,x1,y1):
     return distance
 
 def get_max_distance(agents):
+    
     """
     Calculate the max distance
 
@@ -81,6 +82,101 @@ def get_max_distance(agents):
             #print("max_distance", max_distance)
     return max_distance
 
+def get_distance_list(agents):
+    distance=[]
+    for i in range(len(agents)):
+        a = agents[i]
+        for j in range(i+1,len(agents)):
+            b = agents[j]
+            distance.append(get_distance(a[0], a[1], b[0], b[1]))
+    return distance
+            
+def get_arithmetic_mean(agents):
+    distance=get_distance_list(agents)
+    mean=sum(distance)/len(distance)
+    return mean
+
+def get_standard_deviation(agents):
+    deviations=0
+    mean=get_arithmetic_mean(agents)
+    distance=get_distance_list(agents)
+    for i in distance:
+        deviations+=(i-mean)**2
+    standard_deviation=(deviations/len(distance))**0.5
+    return standard_deviation
+
+def get_median(agents):
+    distance_list=get_distance_list(agents)
+    distance_list.sort()
+    if len(distance_list)%2:
+        median=(distance_list[len(distance_list)//2]+distance_list[len(distance_list)//2]+1)/2
+    else:
+        median=distance_list[len(distance_list)//2]
+    return median
+
+def get_mode(agents):
+    distance_list=get_distance_list(agents)
+    distance_dic={}
+    for i in distance_list:
+        if i in distance_dic:
+            distance_dic[i]+=1
+        else:
+            distance_dic[i]=1
+    for key,value in distance_dic.items():
+        if(value == max(distance_dic.values())):
+            return key,value
+
+
+
+
+
+def get_max_min_distance_tuple(agents):
+    """
+    Calculate the max distance
+
+    Parameters
+    ----------
+    agents : list
+        A list of stored coordinates
+
+    Returns
+    -------
+    max_distance : number
+        max distance
+
+    """
+    max_distance = 0
+    min_distance=math.inf
+    for i in range(len(agents)):
+        a = agents[i]
+        for j in range(i+1,len(agents)):
+            b = agents[j]
+            distance = get_distance(a[0], a[1], b[0], b[1])
+            #print("distance between", a, b, distance)
+            min_distance = min(min_distance, distance)
+            max_distance = max(max_distance, distance)
+            #print("max_distance", max_distance)
+    distance_tuple=(min_distance,max_distance)
+    return distance_tuple
+
+def get_max_min_distance_list(agents):
+    max_distance = 0
+    min_distance=math.inf
+    for i in range(len(agents)):
+        a = agents[i]
+        for j in range(i+1,len(agents)):
+            b = agents[j]
+            distance = get_distance(a[0], a[1], b[0], b[1])
+            #print("distance between", a, b, distance)
+            min_distance=min(min_distance,distance)
+            #print(min_distance)
+            max_distance = max(max_distance, distance)
+            #print("max_distance", max_distance)
+    distance_list=[min_distance,max_distance]
+    return distance_list
+
+
+
 def timer (n_agents,func):
     """
     Calculated running time
@@ -99,28 +195,110 @@ def timer (n_agents,func):
     for i in n_agents:
         agents=create_agents(i)
         start = time.perf_counter()
-        max_distance=get_max_distance(agents)
+        distance=func(agents)
         end = time.perf_counter()
         runtime=end-start
         print("Time taken to calculate maximum distance", runtime, "seconds")
-        print("max_distanse",max_distance)
+        print("distanse",distance)
         timer.append([i,runtime])
     return timer
+
+def ChangeRandomly (agents):
+    for i in range(len(agents)):
+        for j in range(2):
+            r = random.random()
+            if r < 0.5:
+                agents[i][j] +=1
+            else:
+                agents[i][j] -=1
+    return(agents)
+
+
+ 
+
+n_iterations =1000
+agents=create_agents(100)
+# Variables for constraining movement.
+# The minimum x coordinate.
+x_min = 0
+# The minimum y coordinate.
+y_min = 0
+# The maximum x coordinate.
+x_max = 99
+# The maximum y coordinate.
+y_max = 99
+
+mean=get_arithmetic_mean(agents)
+deviation=get_standard_deviation(agents)
+median=get_median(agents)  
+distance_dic=get_mode(agents)
+print(mean,deviation,median,distance_dic) 
+
+
+
+for i in range(n_iterations):
+    agents=ChangeRandomly(agents)
+    for i in range(len(agents)):
+        # Apply movement constraints.
+        if agents[i][0] < x_min:
+            agents[i][0] = x_min
+        if agents[i][1] < y_min:
+            agents[i][0] = y_min
+        if agents[i][0] > x_max:
+            agents[i][0] = x_max
+        if agents[i][1] > y_max:
+            agents[i][1] = y_max
+
+mean=get_arithmetic_mean(agents)
+deviation=get_standard_deviation(agents)
+median=get_median(agents)  
+distance_dic=get_mode(agents)
+print(mean,deviation,median,distance_dic)
+
+
+
+
+
+
+
+
+
+
+
+
 n_agents=range(500,5000,500)
 
-n_agents=timer(n_agents,get_max_distance)
+#mean=get_arithmetic_mean(agents)
+#deviation=get_standard_deviation(agents)
+#median=get_median(agents)  
+#distance_dic=get_mode(agents)
+#print(mean,deviation,median,distance_dic)  
+
+
+
+"""
+max_agents=timer(n_agents,get_max_distance)
+max_min_tuple=timer(n_agents,get_max_min_distance_tuple)
+max_min_list=timer(n_agents,get_max_min_distance_list)
+arithmetic_mean,distance=timer(n_agents,arithmetic_mean)
+standard_deviation=timer(n_agents,standard_deviation)
 #print(n_agents)
 
 # Plot
 plt.title("Time taken to calculate maximum distance for different numbers of agent")
 plt.xlabel("Number of agents")
 plt.ylabel("Time")
-j = 0
-for i in n_agents:
+
+for i in max_agents:
     plt.scatter(i[0], i[1], color='red')
+for i in max_min_tuple:
+    plt.scatter(i[0], i[1], color='blue')
+for i in max_min_list:
+    plt.scatter(i[0], i[1], color='yellow')
+for i in arithmetic_mean:
+    plt.scatter(i[0], i[1], color='green')
 plt.show()
-
-
+"""
 
 
 
