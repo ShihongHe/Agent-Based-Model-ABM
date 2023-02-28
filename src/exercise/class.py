@@ -35,25 +35,15 @@ class Agent():
 
 class Agent():
     def __init__(self, ax, ay):
-        self._x = ax
-        self._y = ay
+        self.__x = ax
+        self.__y = ay
 
-    @property
-    def x(self):
-        """I'm the 'x' property."""
-        return self._x
 
-    @x.setter
-    def x(self, value):
-        self._x = value
-
-    @x.deleter
-    def x(self):
-        del self._x
         
 
 if __name__ == '__main__':
     a = Agent(0, 0)
+    print(a.__dict__)
     a.x = 3
     print(a.x) # <-- Prints 3
     

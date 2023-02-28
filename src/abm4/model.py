@@ -7,7 +7,31 @@ Created on Mon Feb 20 11:17:22 2023
 import math
 import random
 import time
+import agentframework as af
 from matplotlib import pyplot as plt
+import operator
+
+a = af.Agent()
+b = af.Agent()
+print("type(a)", type(a))
+
+# Initialise agents
+agents = []
+
+n_agents=10
+x_min=0
+y_min=0
+x_max=100
+y_max=100
+
+for i in range(n_agents):
+    # Create an agent
+    agents.append(af.Agent(i))
+    print(agents[i])
+    agents[i].move(x_min, y_min, x_max, y_max)
+    print("move:",agents[i])
+
+
 
 random.seed(0)
 def create_agents(n_agents):
@@ -76,7 +100,7 @@ def get_max_distance(agents):
         a = agents[i]
         for j in range(i+1,len(agents)):
             b = agents[j]
-            distance = get_distance(a[0], a[1], b[0], b[1])
+            distance = get_distance(a.x,a.y,b.x,b.y)
             #print("distance between", a, b, distance)
             max_distance = max(max_distance, distance)
             #print("max_distance", max_distance)
@@ -88,9 +112,10 @@ def get_distance_list(agents):
         a = agents[i]
         for j in range(i+1,len(agents)):
             b = agents[j]
-            distance.append(get_distance(a[0], a[1], b[0], b[1]))
+            distance.append(get_distance(a.x,a.y, b.x, b.y))
     return distance
-            
+    
+
 def get_arithmetic_mean(agents):
     distance=get_distance_list(agents)
     mean=sum(distance)/len(distance)
@@ -127,10 +152,6 @@ def get_mode(agents):
         if(value == max(distance_dic.values())):
             return key,value
 
-
-
-
-
 def get_max_min_distance_tuple(agents):
     """
     Calculate the max distance
@@ -152,7 +173,7 @@ def get_max_min_distance_tuple(agents):
         a = agents[i]
         for j in range(i+1,len(agents)):
             b = agents[j]
-            distance = get_distance(a[0], a[1], b[0], b[1])
+            distance = get_distance(a.x, a.y, b.x, b.y)
             #print("distance between", a, b, distance)
             min_distance = min(min_distance, distance)
             max_distance = max(max_distance, distance)
@@ -167,7 +188,7 @@ def get_max_min_distance_list(agents):
         a = agents[i]
         for j in range(i+1,len(agents)):
             b = agents[j]
-            distance = get_distance(a[0], a[1], b[0], b[1])
+            distance = get_distance(a.x, a.y, b.x, b.y)
             #print("distance between", a, b, distance)
             min_distance=min(min_distance,distance)
             #print(min_distance)
@@ -175,8 +196,6 @@ def get_max_min_distance_list(agents):
             #print("max_distance", max_distance)
     distance_list=[min_distance,max_distance]
     return distance_list
-
-
 
 def timer (n_agents,func):
     """
@@ -194,7 +213,7 @@ def timer (n_agents,func):
     """
     timer=[]
     for i in n_agents:
-        agents=create_agents(i)
+        agents.append(af.Agent())
         start = time.perf_counter()
         distance=func(agents)
         end = time.perf_counter()
@@ -206,19 +225,47 @@ def timer (n_agents,func):
 
 def ChangeRandomly (agents):
     for i in range(len(agents)):
-        for j in range(2):
-            r = random.random()
-            if r < 0.5:
-                agents[i][j] +=1
-            else:
-                agents[i][j] -=1
+        r = random.random()
+        if r < 0.5:
+            agents[i].x +=1
+        else:
+            agents[i].x -=1
+        r = random.random()
+        if r < 0.5:
+            agents[i].y +=1
+        else:
+            agents[i].y -=1
     return(agents)
 
 
- 
 
-n_iterations =1000
-agents=create_agents(100)
+
+
+for i in agents:
+    plt.scatter(i.x, i.y, color='black')
+# Plot the coordinate with the largest x red
+lx = max(agents, key=operator.attrgetter('x'))
+plt.scatter(lx.x, lx.y, color='red')
+# Plot the coordinate with the smallest x blue
+sx = min(agents, key=operator.attrgetter('x'))
+plt.scatter(sx.x, sx.y, color='blue')
+# Plot the coordinate with the largest y yellow
+ly = max(agents, key=operator.attrgetter('y'))
+plt.scatter(ly.x, ly.y, color='yellow')
+# Plot the coordinate with the smallest y green
+sy = min(agents, key=operator.attrgetter('y'))
+plt.scatter(sy.x, sy.y, color='green')
+plt.show()
+
+
+
+
+
+
+ 
+"""
+n_iterations =10
+#agents=create_agents(100)
 # Variables for constraining movement.
 # The minimum x coordinate.
 x_min = 0
@@ -229,6 +276,7 @@ x_max = 99
 # The maximum y coordinate.
 y_max = 99
 
+
 mean=get_arithmetic_mean(agents)
 deviation=get_standard_deviation(agents)
 median=get_median(agents)  
@@ -237,26 +285,24 @@ print(mean,deviation,median,distance_dic)
 
 
 
-for i in range(n_iterations):
+for j in range(n_iterations):
     agents=ChangeRandomly(agents)
     for i in range(len(agents)):
         # Apply movement constraints.
-        if agents[i][0] < x_min:
-            agents[i][0] = x_min
-        if agents[i][1] < y_min:
-            agents[i][0] = y_min
-        if agents[i][0] > x_max:
-            agents[i][0] = x_max
-        if agents[i][1] > y_max:
-            agents[i][1] = y_max
+        if agents[i].x < x_min:
+            agents[i].x = x_min
+        if agents[i].y < y_min:
+            agents[i].y = y_min
+        if agents[i].x > x_max:
+            agents[i].x = x_max
+        if agents[i].y > y_max:
+            agents[i].y = y_max
 
 mean=get_arithmetic_mean(agents)
 deviation=get_standard_deviation(agents)
 median=get_median(agents)  
 distance_dic=get_mode(agents)
 print(mean,deviation,median,distance_dic)
-
-
 
 
 
@@ -277,11 +323,10 @@ n_agents=range(500,5000,500)
 
 
 
-"""
 max_agents=timer(n_agents,get_max_distance)
 max_min_tuple=timer(n_agents,get_max_min_distance_tuple)
 max_min_list=timer(n_agents,get_max_min_distance_list)
-arithmetic_mean,distance=timer(n_agents,get_arithmetic_mean)
+mean=timer(n_agents,get_arithmetic_mean)
 standard_deviation=timer(n_agents,get_standard_deviation)
 #print(n_agents)
 
@@ -296,9 +341,8 @@ for i in max_min_tuple:
     plt.scatter(i[0], i[1], color='blue')
 for i in max_min_list:
     plt.scatter(i[0], i[1], color='yellow')
-for i in arithmetic_mean:
+for i in mean:
     plt.scatter(i[0], i[1], color='green')
-plt.show()
 """
 
 
