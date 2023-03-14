@@ -23,13 +23,16 @@ x_min=0
 y_min=0
 x_max=100
 y_max=100
-
+times=10000
 for i in range(n_agents):
-    # Create an agent
-    agents.append(af.Agent(i))
-    print(agents[i])
-    agents[i].move(x_min, y_min, x_max, y_max)
-    print("move:",agents[i])
+        # Create an agent
+        agents.append(af.Agent(i))
+        #print(agents[i])
+        plt.scatter(agents[i].x, agents[i].y, color='black')
+        agents[i].move(x_min, y_min, x_max, y_max,times)
+        #print("move:",agents[i])
+        plt.scatter(agents[i].x, agents[i].y, color='red')
+plt.show()
 
 
 

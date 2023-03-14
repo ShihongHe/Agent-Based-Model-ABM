@@ -1,6 +1,6 @@
 import random
 from matplotlib import pyplot as plt
-
+import operator
 
 class Agent:
     def __init__(self, i):
@@ -62,7 +62,7 @@ if __name__=="__main__":
     y_max=100
     times=10000
     n_agents=100
-    
+     
     for i in range(n_agents):
         # Create an agent
         agents.append(Agent(i))
@@ -71,7 +71,19 @@ if __name__=="__main__":
         agents[i].move(x_min, y_min, x_max, y_max,times)
         #print("move:",agents[i])
         plt.scatter(agents[i].x, agents[i].y, color='red')
-plt.show()
+    # Plot the coordinate with the largest x red
+    lx = max(agents, key=operator.attrgetter('x'))
+    plt.scatter(lx.x, lx.y, color='red',s=100)
+    # Plot the coordinate with the smallest x blue
+    sx = min(agents, key=operator.attrgetter('x'))
+    plt.scatter(sx.x, sx.y, color='blue',s=100)
+    # Plot the coordinate with the largest y yellow
+    ly = max(agents, key=operator.attrgetter('y'))
+    plt.scatter(ly.x, ly.y, color='yellow',s=100)
+    # Plot the coordinate with the smallest y green
+    sy = min(agents, key=operator.attrgetter('y'))
+    plt.scatter(sy.x, sy.y, color='green',s=100)
+    plt.show()
 
 
 
