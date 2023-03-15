@@ -34,7 +34,6 @@ class Agent:
         self.store = (random.random()*100)
         self.store_shares = 0
     
-    
     def __str__(self):
         return self.__class__.__name__ + "(id:"+str(self.i)+", x=" + str(self.x)+ ", y=" + str(self.y) + ", store:"+str(self.store)+", store_shares:"+str(self.store_shares)+")"
     
