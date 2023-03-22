@@ -28,6 +28,25 @@ class Agent:
     def __repr__(self):
         return str(self)
     def move(self, x_min, y_min, x_max, y_max,times):
+        """
+        
+
+        Parameters
+        ----------
+        x_min : number
+            Limit to the smallest x.
+        y_min : number
+            Limit to the smallest y.
+        x_max : number
+            Limit the maximum x.
+        y_max : number
+            Limit the maximum x.
+
+        Returns
+        -------
+        None.
+
+        """
         for i in range(times):
             # Change agents[i] coordinates randomly
             # x-coordinate

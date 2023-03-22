@@ -12,8 +12,7 @@ from matplotlib import pyplot as plt
 random.seed(0)
 def create_agents(n_agents):
     """
-    A function to create a list of agents. The decorator will print the time
-    it takes to run this function.
+    A function to create a list of agents. 
 
     Parameters
     ----------
@@ -83,6 +82,20 @@ def get_max_distance(agents):
     return max_distance
 
 def get_distance_list(agents):
+    """
+    
+
+    Parameters
+    ----------
+    agents : list
+        A list of stored coordinates
+
+    Returns
+    -------
+    distance : list
+        Store a list of all distances between coordinates.
+
+    """
     distance=[]
     for i in range(len(agents)):
         a = agents[i]
@@ -92,11 +105,39 @@ def get_distance_list(agents):
     return distance
             
 def get_arithmetic_mean(agents):
+    """
+    
+
+    Parameters
+    ----------
+    agents : list
+        A list of stored coordinates.
+
+    Returns
+    -------
+    mean : Number
+        Calculate the mean of all coordinate distances.
+
+    """
     distance=get_distance_list(agents)
     mean=sum(distance)/len(distance)
     return mean
 
 def get_standard_deviation(agents):
+    """
+    
+
+    Parameters
+    ----------
+    agents : list
+        A list of stored coordinates.
+
+    Returns
+    -------
+    standard_deviation : Number
+        Calculate the standard deviation of all coordinate distances.
+
+    """
     deviations=0
     mean=get_arithmetic_mean(agents)
     distance=get_distance_list(agents)
@@ -106,6 +147,21 @@ def get_standard_deviation(agents):
     return standard_deviation
 
 def get_median(agents):
+    """
+    
+
+    Parameters
+    ----------
+    agents : list
+        A list of stored coordinates.
+
+    Returns
+    -------
+    median : Number
+        Calculate the median of all coordinate distances
+
+
+    """
     distance_list=get_distance_list(agents)
     distance_list.sort()
     if len(distance_list)%2:
@@ -116,6 +172,22 @@ def get_median(agents):
     return median
 
 def get_mode(agents):
+    """
+    
+
+    Parameters
+    ----------
+    agents : list
+        A list of stored coordinates.
+
+    Returns
+    -------
+    key : Number
+        Number of mode for all coordinate distances.
+    value : Number
+        DThe value of the mode of all coordinate distances.
+
+    """
     distance_list=get_distance_list(agents)
     distance_dic={}
     for i in distance_list:
@@ -133,19 +205,20 @@ def get_mode(agents):
 
 def get_max_min_distance_tuple(agents):
     """
-    Calculate the max distance
+    
 
     Parameters
     ----------
     agents : list
-        A list of stored coordinates
+        A list of stored coordinates.
 
     Returns
     -------
-    max_distance : number
-        max distance
+    distance_tuple : Tuple
+        A tuple that holds the maximum and minimum distances of all coordinates.
 
     """
+  
     max_distance = 0
     min_distance=math.inf
     for i in range(len(agents)):
@@ -161,6 +234,20 @@ def get_max_min_distance_tuple(agents):
     return distance_tuple
 
 def get_max_min_distance_list(agents):
+    """
+    
+
+    Parameters
+    ----------
+    agents : list
+        A list of stored coordinates.
+
+    Returns
+    -------
+    distance_list : List
+        A list that holds the maximum and minimum distances of all coordinates.
+
+    """
     max_distance = 0
     min_distance=math.inf
     for i in range(len(agents)):
@@ -177,34 +264,54 @@ def get_max_min_distance_list(agents):
     return distance_list
 
 
-
-def timer (n_agents,func):
+def timer (n_agents,func,name):
     """
-    Calculated running time
     
+
     Parameters
     ----------
     n_agents : iterator
+        iterator.
+    func : function
+        function.
+    name : str
+        function name.
 
     Returns
     -------
     timer : list
-        Time and frequency
+        Time and frequency.
 
     """
+    
     timer=[]
     for i in n_agents:
+        print(i)
         agents=create_agents(i)
         start = time.perf_counter()
-        distance=func(agents)
+        num=func(agents)
         end = time.perf_counter()
         runtime=end-start
-        print("Time taken to calculate maximum distance", runtime, "seconds")
-        print("distanse",distance)
+        print("Time taken to calculate ",name,":", runtime, "seconds")
+        print(name,num)
         timer.append([i,runtime])
     return timer
 
 def ChangeRandomly (agents):
+    """
+    
+
+    Parameters
+    ----------
+    agents : list
+        A list of stored coordinates.
+
+    Returns
+    -------
+    agents : list.
+        Agents after random movement
+
+    """
     for i in range(len(agents)):
         for j in range(2):
             r = random.random()
@@ -216,9 +323,13 @@ def ChangeRandomly (agents):
 
 
  
-
+#Initialising iterators
 n_iterations =1000
+
+#Create coordinates
 agents=create_agents(100)
+
+
 # Variables for constraining movement.
 # The minimum x coordinate.
 x_min = 0
@@ -229,14 +340,16 @@ x_max = 99
 # The maximum y coordinate.
 y_max = 99
 
+"""
+#Calculate the mean, standard deviation, median and mode
 mean=get_arithmetic_mean(agents)
 deviation=get_standard_deviation(agents)
 median=get_median(agents)  
 distance_dic=get_mode(agents)
 print(mean,deviation,median,distance_dic) 
+"""
 
-
-
+#Move coordinates
 for i in range(n_iterations):
     agents=ChangeRandomly(agents)
     for i in range(len(agents)):
@@ -250,11 +363,14 @@ for i in range(n_iterations):
         if agents[i][1] > y_max:
             agents[i][1] = y_max
 
+"""
+#Mean, standard deviation, median and mode after moving
 mean=get_arithmetic_mean(agents)
 deviation=get_standard_deviation(agents)
 median=get_median(agents)  
 distance_dic=get_mode(agents)
 print(mean,deviation,median,distance_dic)
+"""
 
 
 
@@ -265,28 +381,20 @@ print(mean,deviation,median,distance_dic)
 
 
 
-
-
+#Initialising iterators
 n_agents=range(500,5000,500)
 
-#mean=get_arithmetic_mean(agents)
-#deviation=get_standard_deviation(agents)
-#median=get_median(agents)  
-#distance_dic=get_mode(agents)
-#print(mean,deviation,median,distance_dic)  
 
-
-
-"""
-max_agents=timer(n_agents,get_max_distance)
-max_min_tuple=timer(n_agents,get_max_min_distance_tuple)
-max_min_list=timer(n_agents,get_max_min_distance_list)
-arithmetic_mean,distance=timer(n_agents,get_arithmetic_mean)
-standard_deviation=timer(n_agents,get_standard_deviation)
+#Time taken for maximum distance minimum distance mean standard deviation
+max_agents=timer(n_agents,get_max_distance,"max distance")
+max_min_tuple=timer(n_agents,get_max_min_distance_tuple,"max and min distance tuple")
+max_min_list=timer(n_agents,get_max_min_distance_list,"max and min distance list")
+arithmetic_mean=timer(n_agents,get_arithmetic_mean,"mean")
+standard_deviation=timer(n_agents,get_standard_deviation,"standard deviation")
 #print(n_agents)
 
 # Plot
-plt.title("Time taken to calculate maximum distance for different numbers of agent")
+plt.title("Time taken to calculate distance statistics for different numbers of agent")
 plt.xlabel("Number of agents")
 plt.ylabel("Time")
 
@@ -299,7 +407,6 @@ for i in max_min_list:
 for i in arithmetic_mean:
     plt.scatter(i[0], i[1], color='green')
 plt.show()
-"""
 
 
 

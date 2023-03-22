@@ -30,7 +30,7 @@ matplotlib.use('TkAgg')
 n_agents=10
 x_min=0
 y_min=0
-n_iterations=50
+n_iterations=100
 neighbourhood=100
 
 
@@ -67,6 +67,20 @@ def create_agents(n_agents):
 
 
 def sum_environment(env):
+    """
+    
+
+    Parameters
+    ----------
+    env : list
+        List of environments.
+
+    Returns
+    -------
+    sum_values : number
+        Sum of environmental values.
+
+    """
     sum_values=0
     for i in range(len(env)):
         for j in range(len(env[i])):
@@ -74,16 +88,37 @@ def sum_environment(env):
     return sum_values
             
 def sum_agent_stores(agents):
+    """
+    
+
+    Parameters
+    ----------
+    agents : list
+        A list of stored coordinates.
+
+    Returns
+    -------
+    sum_store : number
+        Sum of all store values.
+
+    """
     sum_store=0
     for i in range(len(agents)):
         sum_store+=agents[i].store
     return sum_store
 
+
+#Executed on the first call to FuncAnimation
 def plot():
+    #Clear the canvas
     fig.clear()
+    
+    #Limit x, y range
     plt.ylim(y_min, y_max)
     plt.xlim(x_min, x_max)
     plt.imshow(environment)
+    
+    #plot
     for i in range(n_agents):
         plt.scatter(agents[i].x, agents[i].y, color='black')
     # Plot the coordinate with the largest x red
@@ -99,12 +134,17 @@ def plot():
     sy = min(agents, key=operator.attrgetter('y'))
     plt.scatter(sy.x, sy.y, color='green')
     global ite
+    #Save the images and name each one
     filename = '../../data/output/images/image' + str(ite) + '.png'
     plt.savefig(filename)
     plt.show()
+    
+    #Adding metadata for images in images
     images.append(imageio.imread(filename))
     return fig
 
+
+#updata data
 def update(frames):
     # Model loop
     global carry_on
@@ -148,6 +188,7 @@ def update(frames):
     plot()
     #ite = ite + 1
     
+#Get Iterator    
 def gen_function():
     global ite
     ite = 0
@@ -161,8 +202,7 @@ def gen_function():
         print("write data")
         io.write_data('../../data/output/out7.txt', environment)
         imageio.mimsave('../../data/output/out7.gif', images, fps=3)
-
-        data_written = True
+        data_written = True    
         
 def exiting():
     """
@@ -185,25 +225,8 @@ def output():
 
 
 if __name__ == '__main__':
-    # Initialise agents
-
-    url = agdturner.github.io/resources/abm9/data.html
-    r = requests.get('agdturner.github.io/resources/abm9/data.html', verify=False)
-    content = r.text
-    soup = bs4.BeautifulSoup(content, 'html.parser')
-    td_ys = soup.find_all(attrs={"class" : "y"})
-    td_xs = soup.find_all(attrs={"class" : "x"})
-    print(td_ys)
-    print(td_xs)
-    agents = []
-    for i in range(n_agents):
-        # Create an agent
-        y = int(td_ys[i].text) + 99
-        x = int(td_xs[i].text) + 99
-        agents.append(af.Agent(agents, i, environment, n_rows, n_cols, x, y))
-        print(agents[i].agents[i]) 
-      
     
+    #read environment
     f='../../data/input/in.txt'
     environment,n_rows, n_cols = io.read_data(f)
     # Initialise agents
@@ -216,7 +239,7 @@ if __name__ == '__main__':
     y_max = n_rows - 1
     
     #creat agent
-    agents=create_agents(n_agents)
+    #agents=create_agents(n_agents)
     
     
     
@@ -232,6 +255,27 @@ if __name__ == '__main__':
     ite = 0
     images = []
     
+    
+    
+    # Initialise agents
+
+    #url = agdturner.github.io/resources/abm9/data.html
+    r = requests.get('http://agdturner.github.io/resources/abm9/data.html', verify=False)
+    content = r.text
+    soup = bs4.BeautifulSoup(content, 'html.parser')
+    td_ys = soup.find_all(attrs={"class" : "y"})
+    td_xs = soup.find_all(attrs={"class" : "x"})
+    print(td_ys)
+    print(td_xs)
+    agents = []
+    for i in range(n_agents):
+        # Create an agent
+        y = int(td_ys[i].text) + 99
+        x = int(td_xs[i].text) + 99
+        agents.append(af.Agent(agents, i, environment, n_rows, n_cols, x, y))
+        print(agents[i].agents[i]) 
+      
+    
     # Animate
     # Initialise fig and carry_on
     fig = plt.figure(figsize=(7, 7))
@@ -240,8 +284,7 @@ if __name__ == '__main__':
     data_written = False
     #animation = anim.FuncAnimation(fig, update, init_func=plot, frames=gen_function, repeat=False)
     #animation.save("animation.gif", writer="imagemagick")
-    
-  
+
     # GUI
     root = tk.Tk()
     root.wm_title("Agent Based Model")

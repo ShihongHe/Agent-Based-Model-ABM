@@ -7,9 +7,15 @@ import operator
 #agents=[list0,list1]
 #print(agents)
 
+
+# Create a list to store agents
 agents=[]
+
+#Append to the list agents
 for i in range(100):
     agents.append([random.randint(0, 99), random.randint(0, 99)])
+    
+    
 # Plot the agents
 for i in range(100):
     plt.scatter(agents[i][0], agents[i][1], color='black')
@@ -29,10 +35,12 @@ plt.scatter(min_x[0],min_x[1],color='blue')
 #the largest y coordinate using the colour yellow;
 max_y=max(agents, key=operator.itemgetter(1))
 plt.scatter(max_y[0],max_y[1],color='yellow')
+
 #the smallest y coordinate using the colour green.
 min_y=min(agents, key=operator.itemgetter(1))
-print(max_x,min_x,max_y,min_y)
 plt.scatter(min_y[0],min_y[1],color='green')
+
+print(max_x,min_x,max_y,min_y)
 
 # Move agents
 def ChangeRandomly (agents):

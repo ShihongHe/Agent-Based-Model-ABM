@@ -31,7 +31,7 @@ class Agent:
         self.x = random.randint(tnc - 1, (2 * tnc) - 1)
         tnr = int(n_rows / 3)
         self.y = random.randint(tnr - 1, (2 * tnr) - 1)
-        self.store = (random.random()*100)
+        self.store = random.random()*100
         self.store_shares = 0
     
     def __str__(self):
@@ -40,31 +40,52 @@ class Agent:
     def __repr__(self):
         return str(self)
     def move(self, x_min, y_min, x_max, y_max):
-            # Change agents[i] coordinates randomly
-            # x-coordinate
-            rn = random.random()
-            if rn < 0.5:
-                self.x = self.x + 1
-            else:
-                self.x = self.x - 1
-            if self.x<x_min:
-                self.x=x_min
-            elif self.x>x_max:
-                self.x=x_max
-            # y-coordinate
-            rn = random.random()
-            if rn < 0.5:
-                self.y = self.y + 1
-            else:
-                self.y = self.y - 1
-            if self.y<y_min:
-                self.y=y_min
-            elif self.y>y_max:
-                self.y=y_max
+        """
+        
+
+        Parameters
+        ----------
+        x_min : number
+            Limit to the smallest x.
+        y_min : number
+            Limit to the smallest y.
+        x_max : number
+            Limit the maximum x.
+        y_max : number
+            Limit the maximum x.
+
+        Returns
+        -------
+        None.
+
+        """
+        # Change agents[i] coordinates randomly
+        # x-coordinate
+        rn = random.random()
+        if rn < 0.5:
+            self.x = self.x + 1
+        else:
+            self.x = self.x - 1
+        if self.x<x_min:
+            self.x=x_min
+        elif self.x>x_max:
+            self.x=x_max
+        # y-coordinate
+        rn = random.random()
+        if rn < 0.5:
+            self.y = self.y + 1
+        else:
+            self.y = self.y - 1
+        if self.y<y_min:
+            self.y=y_min
+        elif self.y>y_max:
+            self.y=y_max
+           
                 
     def eat(self):
         if self.store>=100:
             self.environment[self.y][self.x]+=self.store/2
+            self.store-=self.store/2
             
         if self.environment[self.y][self.x] >= 10:
             self.environment[self.y][self.x] -= 10
@@ -74,6 +95,19 @@ class Agent:
             self.environment[self.y][self.x]=0
             
     def share(self, neighbourhood):
+        """
+        
+
+        Parameters
+        ----------
+        neighbourhood : number
+            Distance from neighbourhood.
+
+        Returns
+        -------
+        None.
+
+        """
         # Create a list of agents in neighbourhood
         neighbours = []
         #print(self.agents[self.i])

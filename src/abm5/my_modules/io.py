@@ -2,6 +2,24 @@ import csv
 
 
 def read_data(f):
+    """
+    
+
+    Parameters
+    ----------
+    f : str
+        File address.
+
+    Returns
+    -------
+    data : list
+        File data.
+    n_rows : number
+        number of rows.
+    n_cols : number
+        number of cols.
+
+    """
     # Read input data
     f = open(f, newline='')
     data = []
@@ -16,3 +34,25 @@ def read_data(f):
     n_rows=len(row)
     n_cols=len(data)
     return data,n_rows, n_cols
+
+def writ_data(address,data):
+    """
+    
+
+    Parameters
+    ----------
+    address : str
+        File address.
+    data : list
+        File data.
+
+    Returns
+    -------
+    None.
+
+    """
+    f = open(address, 'w', newline='')
+    writer = csv.writer(f, delimiter=',')
+    for row in data:
+        writer.writerow(row) # List of values.
+    f.close()

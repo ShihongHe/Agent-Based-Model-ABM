@@ -6,7 +6,7 @@ Created on Mon Feb 20 11:17:22 2023
 """
 
 
-import time
+
 from matplotlib import pyplot as plt
 import operator
 import my_modules.agentframework as af
@@ -17,9 +17,6 @@ import os
 
 
 
-
-
-    
 
 
 
@@ -46,33 +43,21 @@ def create_agents(n_agents):
     return agents
 
 
-def timer (n_agents,func):
+def sum_environment(env):
     """
-    Calculated running time
     
+
     Parameters
     ----------
-    n_agents : iterator
+    env : list
+        List of environments.
 
     Returns
     -------
-    timer : list
-        Time and frequency
+    sum_values : number
+        Sum of environmental values.
 
     """
-    timer=[]
-    for i in n_agents:
-        agents.append(af.Agent())
-        start = time.perf_counter()
-        distance=func(agents)
-        end = time.perf_counter()
-        runtime=end-start
-        print("Time taken to calculate maximum distance", runtime, "seconds")
-        print("distanse",distance)
-        timer.append([i,runtime])
-    return timer
-
-def sum_environment(env):
     sum_values=0
     for i in range(len(env)):
         for j in range(len(env[i])):
@@ -80,6 +65,20 @@ def sum_environment(env):
     return sum_values
             
 def sum_agent_stores(agents):
+    """
+    
+
+    Parameters
+    ----------
+    agents : list
+        A list of stored coordinates.
+
+    Returns
+    -------
+    sum_store : number
+        Sum of all store values.
+
+    """
     sum_store=0
     for i in range(len(agents)):
         sum_store+=agents[i].store
@@ -91,12 +90,13 @@ def sum_agent_stores(agents):
 
 
 if __name__ == '__main__':
-    
+    #read environment
     f='../../data/input/in.txt'
     environment,n_rows, n_cols = io.read_data(f)
+    
     # Initialise agents
     agents = []
-
+    
     n_agents=10
     x_min=0
     y_min=0
@@ -105,10 +105,10 @@ if __name__ == '__main__':
     # The maximum an agents y coordinate is allowed to be.
     #y_max = 99
     y_max = n_rows - 1
-    n_iterations=10
+    n_iterations=100
     neighbourhood=100
 
-
+    #creat agents 
     agents=create_agents(n_agents)
     
     
@@ -117,6 +117,9 @@ if __name__ == '__main__':
         os.makedirs('../../data/output/images/')
     except FileExistsError:
         print("path exists")
+
+
+
 
     # For storing images
     global ite
@@ -197,10 +200,6 @@ if __name__ == '__main__':
 
 
         
-        
-        
-
-
         
 
     # Plot the coordinate with the largest x grey

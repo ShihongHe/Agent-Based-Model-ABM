@@ -13,11 +13,12 @@ import my_modules.agentframework as af
 import my_modules.io as io
 import csv
 
-
+#File address
 f='../../data/input/in.txt'
 
-
+#Read the file
 environment,n_rows, n_cols = io.read_data(f)
+
 # Initialise agents
 agents = []
 
@@ -31,6 +32,7 @@ x_max = n_cols - 1
 y_max = n_rows - 1
 times=100
 
+#Create agents
 for i in range(n_agents):
     agents.append(af.Agent(i,environment,n_rows,n_cols))
 
@@ -110,6 +112,20 @@ def get_max_distance(agents):
     return max_distance
 
 def get_distance_list(agents):
+    """
+    
+
+    Parameters
+    ----------
+    agents : list
+        A list of stored coordinates
+
+    Returns
+    -------
+    distance : list
+        Store a list of all distances between coordinates.
+
+    """
     distance=[]
     for i in range(len(agents)):
         a = agents[i]
@@ -120,11 +136,39 @@ def get_distance_list(agents):
     
 
 def get_arithmetic_mean(agents):
+    """
+    
+
+    Parameters
+    ----------
+    agents : list
+        A list of stored coordinates.
+
+    Returns
+    -------
+    mean : Number
+        Calculate the mean of all coordinate distances.
+
+    """
     distance=get_distance_list(agents)
     mean=sum(distance)/len(distance)
     return mean
 
 def get_standard_deviation(agents):
+    """
+    
+
+    Parameters
+    ----------
+    agents : list
+        A list of stored coordinates.
+
+    Returns
+    -------
+    standard_deviation : Number
+        Calculate the standard deviation of all coordinate distances.
+
+    """
     deviations=0
     mean=get_arithmetic_mean(agents)
     distance=get_distance_list(agents)
@@ -134,6 +178,21 @@ def get_standard_deviation(agents):
     return standard_deviation
 
 def get_median(agents):
+    """
+    
+
+    Parameters
+    ----------
+    agents : list
+        A list of stored coordinates.
+
+    Returns
+    -------
+    median : Number
+        Calculate the median of all coordinate distances
+
+
+    """
     distance_list=get_distance_list(agents)
     distance_list.sort()
     if len(distance_list)%2:
@@ -144,6 +203,22 @@ def get_median(agents):
     return median
 
 def get_mode(agents):
+    """
+    
+
+    Parameters
+    ----------
+    agents : list
+        A list of stored coordinates.
+
+    Returns
+    -------
+    key : Number
+        Number of mode for all coordinate distances.
+    value : Number
+        DThe value of the mode of all coordinate distances.
+
+    """
     distance_list=get_distance_list(agents)
     distance_dic={}
     for i in distance_list:
@@ -157,17 +232,17 @@ def get_mode(agents):
 
 def get_max_min_distance_tuple(agents):
     """
-    Calculate the max distance
+    
 
     Parameters
     ----------
     agents : list
-        A list of stored coordinates
+        A list of stored coordinates.
 
     Returns
     -------
-    max_distance : number
-        max distance
+    distance_tuple : Tuple
+        A tuple that holds the maximum and minimum distances of all coordinates.
 
     """
     max_distance = 0
@@ -185,6 +260,20 @@ def get_max_min_distance_tuple(agents):
     return distance_tuple
 
 def get_max_min_distance_list(agents):
+    """
+    
+
+    Parameters
+    ----------
+    agents : list
+        A list of stored coordinates.
+
+    Returns
+    -------
+    distance_list : List
+        A list that holds the maximum and minimum distances of all coordinates.
+
+    """
     max_distance = 0
     min_distance=math.inf
     for i in range(len(agents)):
@@ -200,47 +289,56 @@ def get_max_min_distance_list(agents):
     distance_list=[min_distance,max_distance]
     return distance_list
 
-def timer (n_agents,func):
+def timer (n_agents,func,name):
     """
-    Calculated running time
     
+
     Parameters
     ----------
     n_agents : iterator
+        iterator.
+    func : function
+        function.
+    name : str
+        function name.
 
     Returns
     -------
     timer : list
-        Time and frequency
+        Time and frequency.
 
     """
+    
     timer=[]
     for i in n_agents:
-        agents.append(af.Agent())
+        print(i)
+        agents=create_agents(i)
         start = time.perf_counter()
-        distance=func(agents)
+        num=func(agents)
         end = time.perf_counter()
         runtime=end-start
-        print("Time taken to calculate maximum distance", runtime, "seconds")
-        print("distanse",distance)
+        print("Time taken to calculate ",name,":", runtime, "seconds")
+        print(name,num)
         timer.append([i,runtime])
     return timer
 
-def ChangeRandomly (agents):
-    for i in range(len(agents)):
-        r = random.random()
-        if r < 0.5:
-            agents[i].x +=1
-        else:
-            agents[i].x -=1
-        r = random.random()
-        if r < 0.5:
-            agents[i].y +=1
-        else:
-            agents[i].y -=1
-    return(agents)
+
 
 def add_environment(env):
+    """
+    
+
+    Parameters
+    ----------
+    env : list
+        List of environments.
+
+    Returns
+    -------
+    sum_values : number
+        Sum of environmental values.
+
+    """
     sum_values=0
     for i in range(len(env)):
         for j in range(len(env[i])):
@@ -248,12 +346,41 @@ def add_environment(env):
     return sum_values
             
 def add_store(agents):
+    """
+    
+
+    Parameters
+    ----------
+    agents : list
+        A list of stored coordinates.
+
+    Returns
+    -------
+    sum_store : number
+        Sum of all store values.
+
+    """
     sum_store=0
     for i in range(len(agents)):
         sum_store+=agents[i].store
     return sum_store
 
 def writ_environment(address,data):
+    """
+    
+
+    Parameters
+    ----------
+    address : str
+        Address for writing documents.
+    data : list
+        Data for writing files.
+
+    Returns
+    -------
+    None.
+
+    """
     f = open(address, 'w', newline='')
     writer = csv.writer(f, delimiter=',')
     for row in data:
@@ -261,24 +388,25 @@ def writ_environment(address,data):
     f.close()
 
 
-
+#eat and move
 for i in range(len(agents)):
     for j in range(times): 
         #plt.scatter(agents[i].x, agents[i].y, color='black')
         agents[i].eat()
         agents[i].move(x_min, y_min, x_max, y_max)
     plt.scatter(agents[i].x, agents[i].y, color='red')
-writ_environment("../../data/output/out.csv", environment)
+#writ_environment("../../data/output/out.csv", environment)
+
+#write environment
+io.writ_data("../../data/output/out.csv", environment)
 
 
-    
+#To plot the agents on the environment    
 plt.imshow(environment)    
     
-
+#sum environment and sum store
 sum_values=add_environment(environment)
 sum_store=add_store(agents)
-
-
 print(sum_values,sum_store,sum_values+sum_store)
     
 

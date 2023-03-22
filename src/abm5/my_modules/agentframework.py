@@ -31,27 +31,47 @@ class Agent:
     def __repr__(self):
         return str(self)
     def move(self, x_min, y_min, x_max, y_max):
-            # Change agents[i] coordinates randomly
-            # x-coordinate
-            rn = random.random()
-            if rn < 0.5:
-                self.x = self.x + 1
-            else:
-                self.x = self.x - 1
-            if self.x<x_min:
-                self.x=x_min
-            elif self.x>x_max:
-                self.x=x_max
-            # y-coordinate
-            rn = random.random()
-            if rn < 0.5:
-                self.y = self.y + 1
-            else:
-                self.y = self.y - 1
-            if self.y<y_min:
-                self.y=y_min
-            elif self.y>y_max:
-                self.y=y_max
+        """
+        
+
+        Parameters
+        ----------
+        x_min : number
+            Limit to the smallest x.
+        y_min : number
+            Limit to the smallest y.
+        x_max : number
+            Limit the maximum x.
+        y_max : number
+            Limit the maximum x.
+
+        Returns
+        -------
+        None.
+
+        """
+        # Change agents[i] coordinates randomly
+        # x-coordinate
+        rn = random.random()
+        if rn < 0.5:
+            self.x = self.x + 1
+        else:
+            self.x = self.x - 1
+        if self.x<x_min:
+            self.x=x_min
+        elif self.x>x_max:
+            self.x=x_max
+        # y-coordinate
+        rn = random.random()
+        if rn < 0.5:
+            self.y = self.y + 1
+        else:
+            self.y = self.y - 1
+        if self.y<y_min:
+            self.y=y_min
+        elif self.y>y_max:
+            self.y=y_max
+           
                 
     def eat(self):
         if self.environment[self.y][self.x] >= 10:

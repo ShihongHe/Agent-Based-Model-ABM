@@ -2,14 +2,12 @@ import random
 import my_modules.geometry as geometry
 
 class Agent:
-    def __init__(self, agents, i, environment, n_rows, n_cols):
+    def __init__(self, agents, i, environment, n_rows, n_cols, x = None, y = None):
         """
         The constructor method.
 
         Parameters
         ----------
-        agents : List
-            A list of Agent instances.
         i : Integer
             To be unique to each instance.
         environment : List
@@ -18,6 +16,10 @@ class Agent:
             The number of rows in environment.
         n_cols : Integer
             The number of columns in environment.
+        x : Integer
+            For initialising the x coordinate of the agent.
+        y : Integer
+            For initialising the y coordinate of the agent.
 
         Returns
         -------
@@ -27,12 +29,19 @@ class Agent:
         self.agents = agents
         self.i = i
         self.environment = environment
-        tnc = int(n_cols / 3)
-        self.x = random.randint(tnc - 1, (2 * tnc) - 1)
-        tnr = int(n_rows / 3)
-        self.y = random.randint(tnr - 1, (2 * tnr) - 1)
-        self.store = (random.random()*100)
+        if x == None:
+            tnc = int(n_cols / 3)
+            self.x = random.randint(tnc - 1, (2 * tnc) - 1)
+        else:
+            self.x = x
+        if y == None:
+            tnr = int(n_rows / 3)
+            self.y = random.randint(tnr - 1, (2 * tnr) - 1)
+        else:
+            self.y = y
+        self.store = random.randint(0, 99)
         self.store_shares = 0
+
     
     def __str__(self):
         return self.__class__.__name__ + "(id:"+str(self.i)+", x=" + str(self.x)+ ", y=" + str(self.y) + ", store:"+str(self.store)+", store_shares:"+str(self.store_shares)+")"
@@ -40,27 +49,47 @@ class Agent:
     def __repr__(self):
         return str(self)
     def move(self, x_min, y_min, x_max, y_max):
-            # Change agents[i] coordinates randomly
-            # x-coordinate
-            rn = random.random()
-            if rn < 0.5:
-                self.x = self.x + 1
-            else:
-                self.x = self.x - 1
-            if self.x<x_min:
-                self.x=x_min
-            elif self.x>x_max:
-                self.x=x_max
-            # y-coordinate
-            rn = random.random()
-            if rn < 0.5:
-                self.y = self.y + 1
-            else:
-                self.y = self.y - 1
-            if self.y<y_min:
-                self.y=y_min
-            elif self.y>y_max:
-                self.y=y_max
+        """
+        
+
+        Parameters
+        ----------
+        x_min : number
+            Limit to the smallest x.
+        y_min : number
+            Limit to the smallest y.
+        x_max : number
+            Limit the maximum x.
+        y_max : number
+            Limit the maximum x.
+
+        Returns
+        -------
+        None.
+
+        """
+        # Change agents[i] coordinates randomly
+        # x-coordinate
+        rn = random.random()
+        if rn < 0.5:
+            self.x = self.x + 1
+        else:
+            self.x = self.x - 1
+        if self.x<x_min:
+            self.x=x_min
+        elif self.x>x_max:
+            self.x=x_max
+        # y-coordinate
+        rn = random.random()
+        if rn < 0.5:
+            self.y = self.y + 1
+        else:
+            self.y = self.y - 1
+        if self.y<y_min:
+            self.y=y_min
+        elif self.y>y_max:
+            self.y=y_max
+            
                 
     def eat(self):
         if self.store>=100:
@@ -74,6 +103,19 @@ class Agent:
             self.environment[self.y][self.x]=0
             
     def share(self, neighbourhood):
+        """
+        
+
+        Parameters
+        ----------
+        neighbourhood : number
+            Distance from neighbourhood.
+
+        Returns
+        -------
+        None.
+
+        """
         # Create a list of agents in neighbourhood
         neighbours = []
         #print(self.agents[self.i])
