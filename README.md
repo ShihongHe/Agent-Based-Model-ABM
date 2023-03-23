@@ -11,23 +11,23 @@ Before you can run the code for this project, you will need to install the follo
 - tkinter
 ## 3.Project structure and description of documents
 - `src/:`Store the source code files containing the 9 ABM models.
-  - `abm1`:
+  - `abm1`:Initial understanding of the abm model and implementation of distance calculations.
   
-  `abm1`:
+  - `abm2`:Drawing with Matplotlib and mastering loops.
   
-  `abm1`:
+  - `abm3`:Define functions and understand the time complexity of the code written, illustrated graphically. Know how to write code to calculate statistical data on distances.
   
-  `abm1`:
+  - `abm4`:Definition Classes.
   
-  `abm1`:
+  - `abm5`:Read and write data and get to grips with the interaction of agents and the environment.
   
-  `abm1`:
+  - `abm6`:Wrapping functionally identical methods into modules.
   
-  `abm1`:
+  - `abm7`:Knowledge of handling exception statements.
   
-  `abm1`:
+  - `abm8`:Operationalisation of the AMB model using Graphical User Interface(GUI).
   
-  `abm1`:
+  - `abm9`:Crawling data from the web.
   
 `data/:`Store the data files used to test and run the model.
 
