@@ -11,9 +11,19 @@ Before you can run the code for this project, you will need to install the follo
 - tkinter
 ## 3.Project structure and description of documents
 `src/:`Store the source code files containing the 9 ABM models.
-
+  `abm1`:
+  `abm1`:
+  `abm1`:
+  `abm1`:
+  `abm1`:
+  `abm1`:
+  `abm1`:
+  `abm1`:
+  `abm1`:
 `data/:`Store the data files used to test and run the model.
+
 `README.md:` Project description document.
+
 `LICENSE: `Licence document describing the licence agreement for the use of the project code.
 
 
