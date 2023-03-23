@@ -295,9 +295,14 @@ if __name__ == '__main__':
     menu_0 = tk.Menu(menu_bar)
     menu_bar.add_cascade(label="Model", menu=menu_0)
     menu_0.add_command(label="Run model", command=lambda: run(canvas))
-    menu_0.add_command(label="Write data", command=lambda: output())
+    menu_0.add_command(label="Write data", command=lambda: io.write_data('../../data/output/images/out1.csv', environment))
     menu_0.add_command(label="Exit", command=lambda: exiting())
-    menu_0.entryconfig("Write data", state="disabled")
+    
+    
+    menu_1 = tk.Menu(menu_bar)
+    menu_bar.add_cascade(label="Time", menu=menu_1)
+    menu_1.add_command(label="max distance time", command=lambda: geometry.timer(range(500,5000,500), geometry.get_max_distance(agents), 'max distance'))
+    #menu_0.entryconfig("Write data", state="disabled")
     # Exit if the window is closed.
     root.protocol('WM_DELETE_WINDOW', exiting)
     tk.mainloop()       

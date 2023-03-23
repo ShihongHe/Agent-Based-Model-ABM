@@ -141,6 +141,7 @@ if __name__ == '__main__':
         # Distribute shares
         for i in range(n_agents):
             agents[i].share(neighbourhood)
+
         # Add store_shares to store and set store_shares back to zero
         for i in range(n_agents):
             #print(agents[i])
