@@ -11,46 +11,6 @@ import agentframework as af
 from matplotlib import pyplot as plt
 import operator
 
-#Instantiating objects
-a = af.Agent(11)
-b = af.Agent(22)
-print("type(a)", type(a))
-
-# Initialise agents
-agents = []
-
-#Number of initialized objects
-n_agents=100
-
-#Initialize maximum and minimum values
-x_min=0
-y_min=0
-x_max=100
-y_max=100
-
-
-times=10000
-for i in range(n_agents):
-    # Create an agent
-    agents.append(af.Agent(i))
-    #print(agents[i])
-    plt.scatter(agents[i].x, agents[i].y, color='black')
-    agents[i].move(x_min, y_min, x_max, y_max,times)
-    #print("move:",agents[i])
-    plt.scatter(agents[i].x, agents[i].y, color='red')
-# Plot the coordinate with the largest x red
-lx = max(agents, key=operator.attrgetter('x'))
-plt.scatter(lx.x, lx.y, color='red',s=100)
-# Plot the coordinate with the smallest x blue
-sx = min(agents, key=operator.attrgetter('x'))
-plt.scatter(sx.x, sx.y, color='blue',s=100)
-# Plot the coordinate with the largest y yellow
-ly = max(agents, key=operator.attrgetter('y'))
-plt.scatter(ly.x, ly.y, color='yellow',s=100)
-# Plot the coordinate with the smallest y green
-sy = min(agents, key=operator.attrgetter('y'))
-plt.scatter(sy.x, sy.y, color='green',s=100)
-plt.show()
 
 
 
@@ -129,7 +89,7 @@ def get_max_distance(agents):
 
 def get_distance_list(agents):
     """
-    
+    Calculate the maximum distance to store in the list
 
     Parameters
     ----------
@@ -153,7 +113,7 @@ def get_distance_list(agents):
 
 def get_arithmetic_mean(agents):
     """
-    
+    Calculate the arithmetic mean
 
     Parameters
     ----------
@@ -172,7 +132,7 @@ def get_arithmetic_mean(agents):
 
 def get_standard_deviation(agents):
     """
-    
+    Calculate the standard deviation
 
     Parameters
     ----------
@@ -195,7 +155,7 @@ def get_standard_deviation(agents):
 
 def get_median(agents):
     """
-    
+    Calculate the median
 
     Parameters
     ----------
@@ -220,7 +180,7 @@ def get_median(agents):
 
 def get_mode(agents):
     """
-    
+    Calculate the mode
 
     Parameters
     ----------
@@ -248,7 +208,7 @@ def get_mode(agents):
 
 def get_max_min_distance_tuple(agents):
     """
-    
+    Calculate the max and min distance store in the tuple
 
     Parameters
     ----------
@@ -277,7 +237,7 @@ def get_max_min_distance_tuple(agents):
 
 def get_max_min_distance_list(agents):
     """
-    
+    Calculate the max and min distance store in the list
 
     Parameters
     ----------
@@ -307,7 +267,8 @@ def get_max_min_distance_list(agents):
 
 def timer (n_agents,func,name):
     """
-    
+    Calculate time spent
+
 
     Parameters
     ----------
@@ -340,7 +301,7 @@ def timer (n_agents,func,name):
 
 def ChangeRandomly (agents):
     """
-    
+    Randomly transformed coordinates
 
     Parameters
     ----------
@@ -366,6 +327,46 @@ def ChangeRandomly (agents):
             agents[i].y -=1
     return(agents)
 
+#Instantiating objects
+a = af.Agent(11)
+b = af.Agent(22)
+print("type(a)", type(a))
+
+# Initialise agents
+agents = []
+
+#Number of initialized objects
+n_agents=100
+
+#Initialize maximum and minimum values
+x_min=0
+y_min=0
+x_max=100
+y_max=100
+
+
+times=10000
+for i in range(n_agents):
+    # Create an agent
+    agents.append(af.Agent(i))
+    #print(agents[i])
+    plt.scatter(agents[i].x, agents[i].y, color='black')
+    agents[i].move(x_min, y_min, x_max, y_max,times)
+    #print("move:",agents[i])
+    plt.scatter(agents[i].x, agents[i].y, color='red')
+# Plot the coordinate with the largest x red
+lx = max(agents, key=operator.attrgetter('x'))
+plt.scatter(lx.x, lx.y, color='red',s=100)
+# Plot the coordinate with the smallest x blue
+sx = min(agents, key=operator.attrgetter('x'))
+plt.scatter(sx.x, sx.y, color='blue',s=100)
+# Plot the coordinate with the largest y yellow
+ly = max(agents, key=operator.attrgetter('y'))
+plt.scatter(ly.x, ly.y, color='yellow',s=100)
+# Plot the coordinate with the smallest y green
+sy = min(agents, key=operator.attrgetter('y'))
+plt.scatter(sy.x, sy.y, color='green',s=100)
+plt.show()
 
 
 

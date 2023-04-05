@@ -83,7 +83,7 @@ def get_max_distance(agents):
 
 def get_distance_list(agents):
     """
-    
+    Calculate the maximum distance to store in the list
 
     Parameters
     ----------
@@ -106,7 +106,7 @@ def get_distance_list(agents):
             
 def get_arithmetic_mean(agents):
     """
-    
+    Calculate the arithmetic mean
 
     Parameters
     ----------
@@ -125,7 +125,7 @@ def get_arithmetic_mean(agents):
 
 def get_standard_deviation(agents):
     """
-    
+    Calculate the standard deviation
 
     Parameters
     ----------
@@ -148,7 +148,7 @@ def get_standard_deviation(agents):
 
 def get_median(agents):
     """
-    
+    Calculate the median
 
     Parameters
     ----------
@@ -173,7 +173,7 @@ def get_median(agents):
 
 def get_mode(agents):
     """
-    
+    Calculate the mode
 
     Parameters
     ----------
@@ -205,8 +205,8 @@ def get_mode(agents):
 
 def get_max_min_distance_tuple(agents):
     """
+    Calculate the max and min distance store in the tuple
     
-
     Parameters
     ----------
     agents : list
@@ -235,7 +235,7 @@ def get_max_min_distance_tuple(agents):
 
 def get_max_min_distance_list(agents):
     """
-    
+    Calculate the max and min distance store in the list
 
     Parameters
     ----------
@@ -266,7 +266,7 @@ def get_max_min_distance_list(agents):
 
 def timer (n_agents,func,name):
     """
-    
+    Calculate time spent
 
     Parameters
     ----------
@@ -299,7 +299,7 @@ def timer (n_agents,func,name):
 
 def ChangeRandomly (agents):
     """
-    
+    Randomly transformed coordinates
 
     Parameters
     ----------
@@ -354,6 +354,8 @@ for i in range(n_iterations):
     agents=ChangeRandomly(agents)
     for i in range(len(agents)):
         # Apply movement constraints.
+        # Inefficient.
+        # should be determined in the function
         if agents[i][0] < x_min:
             agents[i][0] = x_min
         if agents[i][1] < y_min:
@@ -362,6 +364,9 @@ for i in range(n_iterations):
             agents[i][0] = x_max
         if agents[i][1] > y_max:
             agents[i][1] = y_max
+            
+          
+
 
 """
 #Mean, standard deviation, median and mode after moving

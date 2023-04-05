@@ -36,13 +36,22 @@ class Agent:
     
     
     def __str__(self):
+        """
+        Defining the print format
+
+        Returns
+        -------
+        TYPE
+            DESCRIPTION.
+
+        """
         return self.__class__.__name__ + "(id:"+str(self.i)+", x=" + str(self.x)+ ", y=" + str(self.y) + ", store:"+str(self.store)+", store_shares:"+str(self.store_shares)+")"
     
     def __repr__(self):
         return str(self)
     def move(self, x_min, y_min, x_max, y_max):
         """
-        
+        Random movement of coordinates
 
         Parameters
         ----------
@@ -83,6 +92,14 @@ class Agent:
             self.y=y_max
                 
     def eat(self):
+        """
+        eat environment store in store
+
+        Returns
+        -------
+        None.
+
+        """
         if self.store>=100:
             self.environment[self.y][self.x]+=self.store/2
             self.store-=self.store/2
@@ -96,7 +113,7 @@ class Agent:
             
     def share(self, neighbourhood):
         """
-        
+        Shore within threshold shared with each other
 
         Parameters
         ----------
@@ -124,7 +141,6 @@ class Agent:
         for i in neighbours:
             self.agents[i].store_shares += shares
 
-            
         
             
 

@@ -13,28 +13,7 @@ import my_modules.agentframework as af
 import my_modules.io as io
 import csv
 
-#File address
-f='../../data/input/in.txt'
 
-#Read the file
-environment,n_rows, n_cols = io.read_data(f)
-
-# Initialise agents
-agents = []
-
-n_agents=10
-x_min=0
-y_min=0
-# The maximum an agents x coordinate is allowed to be.
-x_max = n_cols - 1
-# The maximum an agents y coordinate is allowed to be.
-#y_max = 99
-y_max = n_rows - 1
-times=100
-
-#Create agents
-for i in range(n_agents):
-    agents.append(af.Agent(i,environment,n_rows,n_cols))
 
 
 
@@ -113,7 +92,7 @@ def get_max_distance(agents):
 
 def get_distance_list(agents):
     """
-    
+    Calculate the maximum distance to store in the list
 
     Parameters
     ----------
@@ -137,7 +116,7 @@ def get_distance_list(agents):
 
 def get_arithmetic_mean(agents):
     """
-    
+    Calculate the arithmetic mean
 
     Parameters
     ----------
@@ -156,7 +135,7 @@ def get_arithmetic_mean(agents):
 
 def get_standard_deviation(agents):
     """
-    
+    Calculate the standard deviation
 
     Parameters
     ----------
@@ -179,7 +158,7 @@ def get_standard_deviation(agents):
 
 def get_median(agents):
     """
-    
+    Calculate the median
 
     Parameters
     ----------
@@ -204,7 +183,7 @@ def get_median(agents):
 
 def get_mode(agents):
     """
-    
+    Calculate the mode
 
     Parameters
     ----------
@@ -232,7 +211,7 @@ def get_mode(agents):
 
 def get_max_min_distance_tuple(agents):
     """
-    
+    Calculate the max and min distance store in the tuple
 
     Parameters
     ----------
@@ -261,7 +240,7 @@ def get_max_min_distance_tuple(agents):
 
 def get_max_min_distance_list(agents):
     """
-    
+    Calculate the max and min distance store in the list
 
     Parameters
     ----------
@@ -291,7 +270,7 @@ def get_max_min_distance_list(agents):
 
 def timer (n_agents,func,name):
     """
-    
+    Calculate time spent
 
     Parameters
     ----------
@@ -326,7 +305,7 @@ def timer (n_agents,func,name):
 
 def add_environment(env):
     """
-    
+    Calculation of the sum of the environments
 
     Parameters
     ----------
@@ -347,7 +326,7 @@ def add_environment(env):
             
 def add_store(agents):
     """
-    
+    Calculation of the sum of the store
 
     Parameters
     ----------
@@ -367,7 +346,7 @@ def add_store(agents):
 
 def writ_environment(address,data):
     """
-    
+    Storing the environment locally
 
     Parameters
     ----------
@@ -386,6 +365,30 @@ def writ_environment(address,data):
     for row in data:
         writer.writerow(row) # List of values.
     f.close()
+    
+    
+#File address
+f='../../data/input/in.txt'
+
+#Read the file
+environment,n_rows, n_cols = io.read_data(f)
+
+# Initialise agents
+agents = []
+
+n_agents=10
+x_min=0
+y_min=0
+# The maximum an agents x coordinate is allowed to be.
+x_max = n_cols - 1
+# The maximum an agents y coordinate is allowed to be.
+#y_max = 99
+y_max = n_rows - 1
+times=100
+
+#Create agents
+for i in range(n_agents):
+    agents.append(af.Agent(i,environment,n_rows,n_cols))
 
 
 #eat and move

@@ -45,7 +45,7 @@ def create_agents(n_agents):
 
 def sum_environment(env):
     """
-    
+    Calculation of the sum of the environments
 
     Parameters
     ----------
@@ -66,7 +66,7 @@ def sum_environment(env):
             
 def sum_agent_stores(agents):
     """
-    
+    Calculation of the sum of the storemn
 
     Parameters
     ----------

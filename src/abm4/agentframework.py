@@ -23,13 +23,22 @@ class Agent:
         pass
     
     def __str__(self):
+        """
+        Defining the print format
+
+        Returns
+        -------
+        TYPE
+            DESCRIPTION.
+
+        """
         return self.__class__.__name__ + "(id:"+str(self.i)+", x=" + str(self.x)+ ", y=" + str(self.y) + ")"
     
     def __repr__(self):
         return str(self)
     def move(self, x_min, y_min, x_max, y_max,times):
         """
-        
+        Random movement of coordinates
 
         Parameters
         ----------

@@ -26,13 +26,22 @@ class Agent:
         self.store = 0
 
     def __str__(self):
+        """
+        Defining the print format
+
+        Returns
+        -------
+        TYPE
+            DESCRIPTION.
+
+        """
         return self.__class__.__name__ + "(id:"+str(self.i)+", x=" + str(self.x)+ ", y=" + str(self.y) + ")"
     
     def __repr__(self):
         return str(self)
     def move(self, x_min, y_min, x_max, y_max):
         """
-        
+        Random movement of coordinates
 
         Parameters
         ----------
@@ -74,6 +83,14 @@ class Agent:
            
                 
     def eat(self):
+        """
+        eat environment store in store
+
+        Returns
+        -------
+        None.
+
+        """
         if self.environment[self.y][self.x] >= 10:
             self.environment[self.y][self.x] -= 10
             self.store += 10

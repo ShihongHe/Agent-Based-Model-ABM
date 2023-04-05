@@ -35,6 +35,19 @@ neighbourhood=100
 
     
 def run(canvas):
+    """
+    plot
+
+    Parameters
+    ----------
+    canvas : TYPE
+        DESCRIPTION.
+
+    Returns
+    -------
+    None.
+
+    """
     animation = anim.FuncAnimation(fig, update, init_func=plot, frames=gen_function, repeat=False)
     animation.new_frame_seq()
     canvas.draw()
@@ -43,8 +56,7 @@ def run(canvas):
 #random.seed(0)
 def create_agents(n_agents):
     """
-    A function to create a list of agents. The decorator will print the time
-    it takes to run this function.
+    A function to create a list of agents. 
 
     Parameters
     ----------
@@ -67,7 +79,7 @@ def create_agents(n_agents):
 
 def sum_environment(env):
     """
-    
+    Calculation of the sum of the environments
 
     Parameters
     ----------
@@ -88,7 +100,8 @@ def sum_environment(env):
             
 def sum_agent_stores(agents):
     """
-    
+    Calculation of the sum of the storemn
+
 
     Parameters
     ----------
@@ -106,8 +119,17 @@ def sum_agent_stores(agents):
         sum_store+=agents[i].store
     return sum_store
 
-#Executed on the first call to FuncAnimation
+
 def plot():
+    """
+    Executed on the first call to FuncAnimation
+
+    Returns
+    -------
+    fig : TYPE
+        DESCRIPTION.
+
+    """
     #Clear the canvas
     fig.clear()
     
@@ -141,8 +163,21 @@ def plot():
     images.append(imageio.imread(filename))
     return fig
 
-#updata data
+
 def update(frames):
+    """
+    updata data
+
+    Parameters
+    ----------
+    frames : TYPE
+        DESCRIPTION.
+
+    Returns
+    -------
+    None.
+
+    """
     # Model loop
     global carry_on
     #for ite in range(n_iterations):
@@ -186,8 +221,16 @@ def update(frames):
     #ite = ite + 1
 
 
-#Get Iterator    
 def gen_function():
+    """
+    Get Iterator 
+
+    Yields
+    ------
+    TYPE
+        DESCRIPTION.
+
+    """
     global ite
     ite = 0
     global carry_on #Not actually needed as we're not assigning, but clearer
@@ -196,13 +239,27 @@ def gen_function():
         ite = ite + 1
     global data_written
     if data_written == False:
-        # Write data
-        print("write data")
-        io.write_data('../../data/output/out7.txt', environment)
-        imageio.mimsave('../../data/output/out7.gif', images, fps=3)
+        # Set the Write data menu to normal.
+        menu_0.entryconfig("Write data", state="normal")
         data_written = True    
 
-        
+
+def output():
+    """
+    write data
+
+    Returns
+    -------
+    None.
+
+    """
+    # Write data
+    print("write data")
+    io.write_data('../../data/output/out.txt', environment)
+    imageio.mimsave('../../data/output/out.gif', images, fps=3)
+    print("Successful writing")
+
+
 def exiting():
     """
     Exit the program.
@@ -211,9 +268,6 @@ def exiting():
     root.destroy()
     #sys.exit(0)
     
-    
-def output():
-    pass
 
 
         

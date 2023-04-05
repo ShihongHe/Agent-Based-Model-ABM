@@ -36,6 +36,19 @@ neighbourhood=100
 
     
 def run(canvas):
+    """
+    plot
+
+    Parameters
+    ----------
+    canvas : TYPE
+        DESCRIPTION.
+
+    Returns
+    -------
+    None.
+
+    """
     animation = anim.FuncAnimation(fig, update, init_func=plot, frames=gen_function, repeat=False)
     animation.new_frame_seq()
     canvas.draw()
@@ -68,7 +81,7 @@ def create_agents(n_agents):
 
 def sum_environment(env):
     """
-    
+    Calculation of the sum of the environments
 
     Parameters
     ----------
@@ -89,7 +102,8 @@ def sum_environment(env):
             
 def sum_agent_stores(agents):
     """
-    
+    Calculation of the sum of the storemn
+
 
     Parameters
     ----------
@@ -108,8 +122,17 @@ def sum_agent_stores(agents):
     return sum_store
 
 
-#Executed on the first call to FuncAnimation
+
 def plot():
+    """
+    Executed on the first call to FuncAnimation
+
+    Returns
+    -------
+    fig : TYPE
+        DESCRIPTION.
+
+    """
     #Clear the canvas
     fig.clear()
     
@@ -144,8 +167,21 @@ def plot():
     return fig
 
 
-#updata data
+
 def update(frames):
+    """
+    updata
+
+    Parameters
+    ----------
+    frames : TYPE
+        DESCRIPTION.
+
+    Returns
+    -------
+    None.
+
+    """
     # Model loop
     global carry_on
     #for ite in range(n_iterations):
@@ -188,8 +224,17 @@ def update(frames):
     plot()
     #ite = ite + 1
     
-#Get Iterator    
+
 def gen_function():
+    """
+    Get Iterator  
+
+    Yields
+    ------
+    TYPE
+        DESCRIPTION.
+
+    """
     global ite
     ite = 0
     global carry_on #Not actually needed as we're not assigning, but clearer
@@ -198,11 +243,9 @@ def gen_function():
         ite = ite + 1
     global data_written
     if data_written == False:
-        # Write data
-        print("write data")
-        io.write_data('../../data/output/out7.txt', environment)
-        imageio.mimsave('../../data/output/out7.gif', images, fps=3)
-        data_written = True    
+        # Set the Write data menu to normal.
+        menu_0.entryconfig("Write data", state="normal")
+        data_written = True   
         
 def exiting():
     """
@@ -211,12 +254,21 @@ def exiting():
     root.quit()
     root.destroy()
     #sys.exit(0)
-    
-    
+
 def output():
-    pass
+    """
+    write data
 
+    Returns
+    -------
+    None.
 
+    """
+    # Write data
+    print("write data")
+    io.write_data('../../data/output/out.txt', environment)
+    imageio.mimsave('../../data/output/out.gif', images, fps=3)
+    print("Successful writing")
       
 
 
@@ -295,18 +347,18 @@ if __name__ == '__main__':
     menu_0 = tk.Menu(menu_bar)
     menu_bar.add_cascade(label="Model", menu=menu_0)
     menu_0.add_command(label="Run model", command=lambda: run(canvas))
-    menu_0.add_command(label="Write data", command=lambda: io.write_data('../../data/output/images/out1.csv', environment))
+    menu_0.add_command(label="Write data", command=lambda: output())
     menu_0.add_command(label="Exit", command=lambda: exiting())
     
     
     menu_1 = tk.Menu(menu_bar)
     menu_bar.add_cascade(label="Time", menu=menu_1)
-    menu_1.add_command(label="max distance time", command=lambda: geometry.timer(range(500,5000,500), geometry.get_max_distance(agents), 'max distance'))
+    #menu_1.add_command(label="max distance time", command=lambda: )
     #menu_0.entryconfig("Write data", state="disabled")
     # Exit if the window is closed.
     root.protocol('WM_DELETE_WINDOW', exiting)
     tk.mainloop()       
-                
+
 
                 
             

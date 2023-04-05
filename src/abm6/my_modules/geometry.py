@@ -1,4 +1,6 @@
 import math
+import time
+import model
 
 
 
@@ -56,7 +58,7 @@ def get_max_distance(agents):
 
 def get_distance_list(agents):
     """
-    
+    Calculate the maximum distance to store in the list
 
     Parameters
     ----------
@@ -80,7 +82,7 @@ def get_distance_list(agents):
 
 def get_arithmetic_mean(agents):
     """
-    
+    Calculate the arithmetic mean
 
     Parameters
     ----------
@@ -99,7 +101,7 @@ def get_arithmetic_mean(agents):
 
 def get_standard_deviation(agents):
     """
-    
+    Calculate the standard deviation
 
     Parameters
     ----------
@@ -122,7 +124,7 @@ def get_standard_deviation(agents):
 
 def get_median(agents):
     """
-    
+    Calculate the median
 
     Parameters
     ----------
@@ -147,7 +149,7 @@ def get_median(agents):
 
 def get_mode(agents):
     """
-    
+    Calculate the mode
 
     Parameters
     ----------
@@ -175,7 +177,7 @@ def get_mode(agents):
 
 def get_max_min_distance_tuple(agents):
     """
-    
+    Calculate the max and min distance store in the tuple
 
     Parameters
     ----------
@@ -204,7 +206,7 @@ def get_max_min_distance_tuple(agents):
 
 def get_max_min_distance_list(agents):
     """
-    
+    Calculate the max and min distance store in the list
 
     Parameters
     ----------
@@ -234,7 +236,7 @@ def get_max_min_distance_list(agents):
 
 def timer (n_agents,func,name):
     """
-    
+    Calculate time spent
 
     Parameters
     ----------
@@ -255,7 +257,7 @@ def timer (n_agents,func,name):
     timer=[]
     for i in n_agents:
         print(i)
-        agents=create_agents(i)
+        agents=model.create_agents(i)
         start = time.perf_counter()
         num=func(agents)
         end = time.perf_counter()

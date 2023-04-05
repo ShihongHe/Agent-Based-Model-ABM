@@ -59,7 +59,7 @@ def create_agents(n_agents):
 
 def sum_environment(env):
     """
-    
+    Calculation of the sum of the environments
 
     Parameters
     ----------
@@ -80,7 +80,7 @@ def sum_environment(env):
             
 def sum_agent_stores(agents):
     """
-    
+    Calculation of the sum of the storemn
 
     Parameters
     ----------
@@ -99,8 +99,17 @@ def sum_agent_stores(agents):
     return sum_store
 
 
-#Executed on the first call to FuncAnimation
+
 def plot():
+    """
+    Executed on the first call to FuncAnimation
+
+    Returns
+    -------
+    fig : TYPE
+        DESCRIPTION.
+
+    """
     #Clear the canvas
     fig.clear()
     
@@ -134,9 +143,20 @@ def plot():
     images.append(imageio.imread(filename))
     return fig
 
-
-#updata data
 def update(frames):
+    """
+    updata data
+
+    Parameters
+    ----------
+    frames : TYPE
+        DESCRIPTION.
+
+    Returns
+    -------
+    None.
+
+    """
     # Model loop
     global carry_on
     #for ite in range(n_iterations):
@@ -183,8 +203,17 @@ def update(frames):
     #ite = ite + 1
 
 
-#Get Iterator    
+ 
 def gen_function():
+    """
+    Get Iterator   
+
+    Yields
+    ------
+    TYPE
+        Iterator.
+
+    """
     global ite
     ite = 0
     global carry_on #Not actually needed as we're not assigning, but clearer

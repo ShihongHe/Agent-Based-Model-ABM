@@ -3,7 +3,8 @@ import csv
 
 def read_data(f):
     """
-    
+    Reading data from the local 
+
 
     Parameters
     ----------
@@ -37,7 +38,7 @@ def read_data(f):
 
 def write_data(address,data):
     """
-    
+    Writing to local 
 
     Parameters
     ----------
